@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prezentacja Dorobku Zawodowego - mgr Jarosław Dymek</title>
+    <!-- Chosen Palette: Professional Blue & Gold (Primary: #0A2F5B, Accent: #FFD700, Text: #1E293B, Background: #F1F5F9) -->
+    <!-- Application Structure Plan: A linear, slide-based Single-Page Application (SPA). The structure directly mirrors the 21-slide project to fulfill the "1:1" requirement. Each slide is a full-height section. Navigation is facilitated by fixed "Next" and "Previous" buttons, mimicking a presentation clicker, and also allows for standard scrolling. This design choice provides a familiar, presentation-like user flow while leveraging web interactivity for data visualization. -->
+    <!-- Visualization & Content Choices: Slide 5 (30% Growth) -> Goal: Inform -> Viz: Large, bold number -> Justification: High impact for a key stat. Slide 7 (70% Improvement) -> Goal: Inform/Proportion -> Viz: Photo Collage -> Justification: Shows diversity of activities leading to improvement, more engaging than a chart. Slide 19 (Achievements) -> Goal: Organize/Summarize -> Viz: Icon list (Unicode) -> Justification: Scannable and visually engaging summary. All other slides use text and images as specified, maintaining the 1:1 project structure. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F1F5F9;
+            color: #1E293B;
+        }
+        .slide {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 1px solid #E2E8F0;
+            scroll-snap-align: start;
+        }
+        .slide-content {
+            background-color: white;
+            padding: 2rem 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            max-width: 1000px;
+            width: 100%;
+        }
+        .slide-title {
+            color: #0A2F5B;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+        .slide-image {
+            max-height: 400px;
+            width: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .nav-button {
+            background-color: #0A2F5B;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-button:hover {
+            background-color: #1E40AF;
+            transform: translateY(-2px);
+        }
+        .kpi-highlight {
+            color: #0A2F5B;
+            font-weight: 900;
+            font-size: 3rem;
+        }
+        .photo-collage {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            max-width: 400px;
+            margin: auto;
+        }
+        .photo-collage img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        .photo-collage img:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 500px;
+            height: 400px;
+            margin: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .slideshow-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slideshow-image.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <!-- Slide 1 -->
+        <section id="slide-1" class="slide">
+            <div class="text-center">
+                <img src="https://i.ibb.co/BKCqp23J/Logo-MOW-Du-y.jpg" alt="Logo MOW" class="mx-auto mb-8 h-32 w-32">
+                <h1 class="text-3xl md:text-4xl slide-title">Prezentacja dorobku zawodowego</h1>
+                <p class="text-xl md:text-2xl font-semibold text-slate-700">nauczyciela kontraktowego ubiegającego się o stopień nauczyciela mianowanego</p>
+                <div class="mt-8 border-t-2 border-slate-200 pt-6">
+                    <p class="text-2xl font-bold text-slate-800">mgr Jarosław Dymek</p>
+                    <p class="text-lg text-slate-600">Młodzieżowy Ośrodek Wychowawczy nr 1 im. Tadeusza Kościuszki w Malborku</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2 -->
+        <section id="slide-2" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Wprowadzenie – Moja droga zawodowa i misja</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Kim jestem:</b> mgr Jarosław Dymek, wychowawca, pasjonat sportu i pracy z młodzieżą.</li>
+                        <li><b>Kwalifikacje:</b> AWF w Gdańsku, studia podyplomowe z Resocjalizacji i Matematyki.</li>
+                        <li><b>Specyfika pracy:</b> Praca wychowawcza i resocjalizacyjna z młodzieżą niedostosowaną społecznie.</li>
+                        <li><b>Ramy stażu:</b> 1.09.2023 – 31.05.2025 (przepisy przejściowe).</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/MDR9jDtW/Jarek-w-Tatrach-Du-e.jpg" alt="Jarosław Dymek w Tatrach" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 3 -->
+        <section id="slide-3" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 1 – Doskonalenie warsztatu pracy i podnoszenie jakości pracy placówki</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Cel:</b> Ciągłe podnoszenie kompetencji w odpowiedzi na potrzeby wychowanków.</li>
+                        <li><b>Kierunki rozwoju:</b> Szkolenia w ramach Wewnątrzszkolnego Doskonalenia Nauczycieli (WDN) oraz samokształcenie.</li>
+                        <li><b>Przełożenie na praktykę:</b> Wykorzystanie nowej wiedzy do tworzenia innowacyjnych projektów i skuteczniejszej pracy z grupą.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/GQ7Z28Fd/Kolarz-dyplom-w-Du-e.jpg" alt="Kolaż dyplomów" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 4 -->
+        <section id="slide-4" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Modernizacja Bazy Sportowej</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Diagnoza:</b> Zauważalna potrzeba ukierunkowania energii wychowanków na konstruktywną aktywność fizyczną.</li>
+                        <li><b>Działanie:</b> Pozyskanie i samodzielny remont sprzętu, modernizacja i doposażenie siłowni przy aktywnym udziale wychowanków.</li>
+                        <li><b>Efekt:</b> Stworzenie nowoczesnej, bezpiecznej i atrakcyjnej przestrzeni do ćwiczeń, dostępnej dla całej społeczności MOW.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/35V6wM8w/Remont-si-owni-Du-y.jpg" alt="Remont siłowni" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 5 -->
+        <section id="slide-5" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Sport jako Narzędzie Resocjalizacji</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Organizacja zawodów:</b> Mistrzostwa MOW w Armwrestlingu i zawody Strong Man.</li>
+                        <li><b>Wymierny sukces:</b> Wzrost frekwencji na zajęciach sportowych o <span class="kpi-highlight">30%</span>.</li>
+                        <li><b>Wpływ na wychowanków:</b> Nauka zdrowej rywalizacji, budowanie pewności siebie i poczucia własnej wartości.</li>
+                        <li><b>Wpływ na placówkę:</b> Podniesienie jakości oferty resocjalizacyjnej.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/6crXzGyk/Zawody-Strong-Man-na-MOW-TROP5-Du-y.jpg" alt="Zawody Strong Man" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 6 -->
+        <section id="slide-6" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 2 – Indywidualne podejście – Klucz do sukcesu</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Fundament pracy:</b> Dogłębna diagnoza (analiza dokumentacji: Indywidualny Program Edukacyjno-Terapeutyczny (IPET), opinie z Poradni Psychologiczno-Pedagogicznej (PPP); indywidualne rozmowy, obserwacja).</li>
+                        <li><b>Cel:</b> Zrozumienie indywidualnej sytuacji, zainteresowań i trudności każdego wychowanka.</li>
+                        <li><b>Metoda:</b> Budowanie relacji opartych na zaufaniu i ścisła współpraca z zespołem specjalistów.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/Xxj0zwpX/Konkurs-czytelniczy-Du-y.jpg" alt="Konkurs czytelniczy" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 7 -->
+        <section id="slide-7" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Indywidualizacja w Praktyce</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Wspieranie pasji:</b> Rozwijanie zainteresowań sportowych, artystycznych i edukacyjnych.</li>
+                        <li><b>Praca nad deficytami:</b> Prowadzenie zajęć rozwijających kompetencje emocjonalno-społeczne.</li>
+                        <li><b>Współpraca z rodziną:</b> Regularny kontakt i wspólne planowanie działań.</li>
+                        <li><b>Mierzalny sukces:</b> Poprawa funkcjonowania społecznego u <span class="font-bold text-lg text-amber-500">70%</span> wychowanków.</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-semibold text-slate-600 mb-4">Kolaż Różnorodnych Aktywności</h3>
+                    <div class="photo-collage">
+                        <img src="https://i.ibb.co/wZgCwPqC/Kajaki4-Du-y.jpg" alt="Spływ kajakowy">
+                        <img src="https://i.ibb.co/G4dhZnSK/Integracje-udzia-w-imprezach-w-Malborku1-Du-y.jpg" alt="Integracja podczas imprezy lokalnej">
+                        <img src="https://i.ibb.co/nMWnLmYh/Wigilia1-Du-y.jpg" alt="Wspólna Wigilia">
+                        <img src="https://i.ibb.co/JwzRrf8g/Lodowisko1-Du-y.jpg" alt="Wyjście na lodowisko">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8 -->
+        <section id="slide-8" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 3 – Nauka przez Doświadczenie</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Cel:</b> Nauka przez działanie, a nie tylko przez słuchanie.</li>
+                        <li><b>Wachlarz metod:</b> Drama, debaty, gry dydaktyczne, projekty grupowe.</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                     <h3 class="font-semibold text-slate-600 mb-4">Wachlarz Metod Aktywizujących</h3>
+                    <div class="photo-collage">
+                        <img src="https://i.ibb.co/Y7fHXvKs/Kajaki1-Du-y.jpg" alt="Integracja na kajakach">
+                        <img src="https://i.ibb.co/zhRZbTkk/MOW-TROP-2024-20-Du-e.jpg" alt="Integracja między placówkami">
+                        <img src="https://i.ibb.co/zhGzsBjn/Strong-Man-w-Nowym-Stawie-Du-y.jpg" alt="Zawody sportowe w terenie">
+                        <img src="https://i.ibb.co/vCHyxYgr/Integracje-na-rajdach-pieszych-Du-y.jpg" alt="Rajd pieszy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9 -->
+        <section id="slide-9" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Zajęcia Kulinarne</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Cel:</b> Nauka współpracy, planowania i dzielenia się obowiązkami.</li>
+                        <li><b>Przykład:</b> Wspólne pieczenie tortu urodzinowego dla kolegi z grupy.</li>
+                        <li><b>Efekt:</b> Zacieśnienie więzi, nauka umiejętności życiowych i rozmowa o wartościach.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/ZRY8fxn3/Tort-urodzinowy-Du-y.jpg" alt="Tort urodzinowy" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 10 -->
+        <section id="slide-10" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Integracja w Terenie</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Cel:</b> Budowanie zespołu, nauka przez doświadczenie i przełamywanie barier.</li>
+                        <li><b>Przykłady:</b> Wyjścia do kina, na lodowisko, do parku wodnego, wycieczki edukacyjne oraz zajęcia na strzelnicy.</li>
+                        <li><b>Efekt:</b> Zacieśnienie więzi w grupie, wzrost zaufania oraz kształtowanie opanowania i odpowiedzialności.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/5xz4LvLc/Nauka-bezpiecznego-pos-ugiwania-si-broni-na-strzelnicy-Du-y.jpg" alt="Zajęcia na strzelnicy" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 11 -->
+        <section id="slide-11" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 4 – Ewaluacja – Kompas w Pracy Wychowawcy</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Filozofia pracy:</b> Ewaluacja jako stały element rozwoju, a nie formalność.</li>
+                        <li><b>Narzędzia:</b> Samoocena, anonimowe ankiety, konsultacje z Mentorem i zespołem, analiza obserwacji zajęć.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/pGZBzCw/Szkolenie-przezd-ASG-Du-y.jpg" alt="Szkolenie ASG" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 12 -->
+        <section id="slide-12" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Głos Wychowanków ma Znaczenie</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Problem (wynik ankiet):</b> Zdiagnozowana potrzeba większej liczby zajęć praktycznych i wspólnych wyjść w teren.</li>
+                        <li><b>Rozwiązanie:</b> Wprowadzenie warsztatów kulinarnych i wycieczki do Jastrzębiej Góry.</li>
+                        <li><b>Efekt:</b> Lepsze dopasowanie działań do potrzeb, wzrost zaangażowania i pozytywna ocena.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/Y7qy8NCp/Wycieczka-do-Jastrz-biej-G-ry3-Du-y.jpg" alt="Wycieczka do Jastrzębiej Góry" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 13 -->
+        <section id="slide-13" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 5 – Siła Zespołu – Dzielenie się Wiedzą</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Filozofia:</b> Rozwój jednostki służy rozwojowi całej placówki.</li>
+                        <li><b>Działania:</b> Aktywny udział w WDN, prowadzenie zajęć otwartych, udostępnianie materiałów.</li>
+                        <li><b>Wspólne inicjatywy:</b> Opracowanie programu "Sport jako narzędzie resocjalizacji".</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/G3f2shGq/MOW-TROP-2024-6-Du-e.jpg" alt="Współpraca między placówkami" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 14 -->
+        <section id="slide-14" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 6 – Otwarci na Świat – Współpraca ze Środowiskiem</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Cel:</b> Integracja wychowanków ze społecznością i przełamywanie stereotypów.</li>
+                        <li><b>Partnerzy:</b> Polski Czerwony Krzyż (PCK), Policja, Straż Pożarna, lokalne kluby sportowe, organizacje pozarządowe.</li>
+                        <li><b>Formy współpracy:</b> Akcje charytatywne, wolontariat, wyjścia edukacyjne, spotkania.</li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <h3 class="font-semibold text-slate-600 mb-4">Kolaż Integracji ze Społecznością</h3>
+                    <div class="photo-collage">
+                        <img src="https://i.ibb.co/whpGvmd9/MOW-TROP-2024-12-Du-e.jpg" alt="Integracja w terenie">
+                        <img src="https://i.ibb.co/DHGFZTvW/MOW-TROP-2024-19-Du-e.jpg" alt="Wspólne zawody">
+                        <img src="https://i.ibb.co/nsgBzcDD/MOW-TROP-2024-11-Du-e.jpg" alt="Spotkanie integracyjne">
+                        <img src="https://i.ibb.co/mCZL8WRw/MOW-TROP-2024-18-Du-e.jpg" alt="Aktywność na świeżym powietrzu">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15 -->
+        <section id="slide-15" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Nauka Empatii przez Działanie</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Inicjatywy:</b> Zbiórki darów dla Ukrainy, pomoc pogorzelcom, wypieki na cele charytatywne.</li>
+                        <li><b>Wartość wychowawcza:</b> Nauka empatii, odpowiedzialności społecznej i bezinteresowności.</li>
+                        <li><b>Efekt:</b> Kształtowanie postaw prospołecznych i budowanie poczucia sprawczości.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/cS274bNL/Wolontariat-podzi-kowanie-od-OR-PCK-J-Wodzi-ski-wiceprezes-Du-y.jpg" alt="Podziękowanie od PCK" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 16 -->
+        <section id="slide-16" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 7 – Prawo – Fundament Profesjonalizmu</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Fundament pracy:</b> Bieżąca analiza kluczowych aktów prawnych (Karta Nauczyciela, Ustawa o resocjalizacji nieletnich, etc.).</li>
+                        <li><b>Praktyczne zastosowanie:</b> Prawidłowe prowadzenie dokumentacji, stosowanie procedur, wdrażanie standardów ochrony małoletnich.</li>
+                        <li><b>Efekt:</b> Działanie zgodne z prawem, zapewniające bezpieczeństwo i budujące zaufanie.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/jPRjfpVM/Prawo.png" alt="Symbol prawa i profesjonalizmu" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 17 -->
+        <section id="slide-17" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">§ 7 ust. 2 pkt 8 – Narzędzia Nowoczesnego Wychowawcy</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Technologie Informacyjno-Komunikacyjne (TIK) jako narzędzie:</b> Wykorzystanie technologii do realizacji celów wychowawczych.</li>
+                        <li><b>W praktyce:</b> Prowadzenie strony MOW, quizy online, prezentacje multimedialne, e-portfolio.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/vvc6VCX4/O-rodek-Kultury-Morskiej-Narodowe-Muzum-Morskie-w-Gda-sku3-cz-mulitimedialna-Du-y.jpg" alt="Ośrodek Kultury Morskiej" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 18 -->
+        <section id="slide-18" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Studium przypadku: Autorskie Rozwiązanie TIK</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Problem:</b> Jak sprawnie i sprawiedliwie przeprowadzić zawody w Armwrestlingu?</li>
+                        <li><b>Rozwiązanie:</b> Stworzenie od podstaw autorskiego programu komputerowego do zarządzania turniejem.</li>
+                        <li><b>Funkcje:</b> Losowanie par, generowanie drabinki, archiwizacja wyników.</li>
+                        <li><b>Efekt:</b> Profesjonalizacja zawodów, transparentność i ogromne zaangażowanie uczestników.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/8njJ0346/Zawody-w-si-owaniu-na-r-k-na-przestrzeni-lat4-Du-y.jpg" alt="Zawody w siłowaniu na rękę" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 19 -->
+        <section id="slide-19" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Podsumowanie: Konkretne Efekty i Wpływ</h2>
+                    <ul class="space-y-3 text-slate-700 text-lg">
+                        <li class="flex items-center"><span class="text-2xl mr-3">📈</span> Wzrost zaangażowania: +30% frekwencji na zajęciach sportowych.</li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🤝</span> Realna poprawa funkcjonowania: Potwierdzona u 70% wychowanków.</li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">💡</span> Wdrożone innowacje: Siłownia, autorski program TIK, program resocjalizacji przez sport.</li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">🌍</span> Pozytywny wizerunek: Aktywna współpraca z lokalnymi instytucjami.</li>
+                        <li class="flex items-center"><span class="text-2xl mr-3">💻</span> Rozwój kompetencji: Cyfrowych, społecznych i osobistych.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/chSKwXtW/Cenne-Trofea-Du-y.jpg" alt="Cenne trofea" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 20 -->
+        <section id="slide-20" class="slide">
+            <div class="slide-content grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl slide-title">Refleksja i Plany Dalszego Rozwoju</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li><b>Refleksja:</b> Staż był czasem intensywnej nauki, która potwierdziła, że praca wychowawcy to moja pasja.</li>
+                        <li><b>Mocne strony:</b> Kreatywność, motywowanie, organizacja pracy zespołowej.</li>
+                        <li><b>Obszary do rozwoju:</b> Kompetencje mediacyjne, praca z młodzieżą z nasilonymi zaburzeniami zachowania.</li>
+                        <li><b>Plany na przyszłość:</b> Kontynuacja sprawdzonych inicjatyw, dalsze szkolenia i poszerzanie wiedzy.</li>
+                    </ul>
+                </div>
+                <img src="https://i.ibb.co/gbFtxwZ0/Wolontariat3-Du-y.jpg" alt="Wolontariat" class="slide-image mx-auto">
+            </div>
+        </section>
+
+        <!-- Slide 21 -->
+        <section id="slide-21" class="slide">
+            <div class="slide-content text-center">
+                <h2 class="text-3xl slide-title">Podziękowania</h2>
+                <p class="text-lg text-slate-700 mb-6">Dla Pana Dyrektora Karola Chlebowskiego, Mentorki – mgr Wioletty Głowackiej – za zaufanie i wsparcie.<br>Dla całego Zespołu za wspaniałą współpracę.<br>Szczególne podziękowania dla moich Wychowanków – za bycie codzienną inspiracją.</p>
+                <div id="slideshow-21" class="slideshow-container mx-auto mb-6"></div>
+                <p class="text-2xl font-bold">Dziękuję Państwu za uwagę.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="navigation" class="fixed bottom-0 left-0 right-0 p-4 bg-white/50 backdrop-blur-sm border-t border-slate-200">
+        <div class="container mx-auto flex justify-between items-center">
+            <button id="prevBtn" class="nav-button">Poprzedni</button>
+            <div id="slide-counter" class="text-sm font-semibold text-slate-600">Slajd 1 / 21</div>
+            <button id="nextBtn" class="nav-button">Następny</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+
+            function updateNav() {
+                slideCounter.textContent = `Slajd ${currentSlide + 1} / ${slides.length}`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slides.length - 1;
+                prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+                nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+            }
+
+            function goToSlide(slideIndex) {
+                slides[slideIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    goToSlide(currentSlide);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    goToSlide(currentSlide);
+                }
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const slideId = entry.target.id;
+                        currentSlide = Array.from(slides).findIndex(s => s.id === slideId);
+                        updateNav();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            slides.forEach(slide => observer.observe(slide));
+            
+            updateNav();
+
+            // Slideshow logic
+            function createSlideshow(containerId, imageUrls) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                imageUrls.forEach((url, index) => {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.classList.add('slideshow-image');
+                    if (index === 0) {
+                        img.classList.add('active');
+                    }
+                    container.appendChild(img);
+                });
+
+                let currentImageIndex = 0;
+                setInterval(() => {
+                    const images = container.querySelectorAll('.slideshow-image');
+                    if(images.length > 0) {
+                        images[currentImageIndex].classList.remove('active');
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        images[currentImageIndex].classList.add('active');
+                    }
+                }, 3000); // Change image every 3 seconds
+            }
+
+            createSlideshow('slideshow-21', [
+                'https://i.ibb.co/7JrjgCqM/O-rodek-Kultury-Morskiej-Narodowe-Muzum-Morskie-w-Gda-sku2-Du-y.jpg',
+                'https://i.ibb.co/B2pb2y3g/Gda-sk-ul-D-uga-Du-y.jpg',
+                'https://i.ibb.co/gLhP4Sgb/Egzamin-smoklasisty-Du-y.jpg'
+            ]);
+        });
+    </script>
+</body>
+</html>
